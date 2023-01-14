@@ -1,8 +1,17 @@
 from flask import Flask, request, json
 from werkzeug.exceptions import HTTPException
 from flasgger import Swagger, swag_from
-
 import requests
+
+from validation import (
+    url_validation,
+    token_validation,
+    alias_validation
+)
+from settings import (
+    HOST,
+    PORT
+)
 
 
 BASE_URL = "https://api.shorten.rest/aliases"
@@ -36,6 +45,27 @@ def create_endpoint():
     alias = request.json.get("alias")
     # Get the token from the request body
     token = request.json.get("token")
+
+    errors = []
+    # Validate the url
+    try:
+        url_validation(url)
+    except ValueError as e:
+        errors.append(str(e))
+    # Validate the token
+    try:
+        token_validation(token)
+    except ValueError as e:
+        errors.append(str(e))
+    # Validate the alias
+    try:
+        alias_validation(alias)
+    except ValueError as e:
+        errors.append(str(e))
+    # Return the errors if any
+    if errors:
+        return {"data": {}, "errors": errors, "code": 422}, 422
+    
     # Create the short url
     status_code, short_url, errors, code = create_short_url(url, alias, token)
     # Return the short url
@@ -51,6 +81,22 @@ def delete_endpoint():
     alias = request.json.get("alias")
     # Get the token from the request body
     token = request.json.get("token")
+
+    errors = []
+    # Validate the token
+    try:
+        token_validation(token)
+    except ValueError as e:
+        errors.append(str(e))
+    # Validate the alias
+    try:
+        alias_validation(alias)
+    except ValueError as e:
+        errors.append(str(e))
+    # Return the errors if any
+    if errors:
+        return {"data": {}, "errors": errors, "code": 422}, 422
+
     # Delete the short url
     status_code, errors, code = delete_short_url(alias, token)
     # Return the response
@@ -76,8 +122,8 @@ def create_short_url(url, alias, token):
     json = response.json()
     status_code = response.status_code
     if status_code == 200:
-        return status_code, json["shortUrl"], json.get("errors", None), json.get("code")
-    return status_code, None, json.get("errors", None), json.get("code")
+        return status_code, json["shortUrl"], json.get("errors", []), json.get("errorCode")
+    return status_code, None, json.get("errorMessage", []), json.get("errorCode")
 
 
 def delete_short_url(alias, token):
@@ -91,7 +137,12 @@ def delete_short_url(alias, token):
     }
     # Make the request
     response = requests.delete(BASE_URL, json=body, headers=header)
+    status_code = response.status_code
+    if(status_code == 200):
+        return status_code, [], 200
     # Return the response
     json = response.json()
-    status_code = response.status_code
-    return status_code, json.get("errors", None), json.get("code")
+    return status_code, json.get("errorMessage", []), json.get("errorCode")
+
+if __name__ == '__main__':
+    app.run(host=HOST, port=PORT, debug=True)
