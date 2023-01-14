@@ -1,10 +1,9 @@
-# Base Repository
-Dear employees, this is a base repo created for you to use it in the different
-services you develop. The structure is simple, there is a `.gitignore` file to
-avoid adding local files to the repositories, the GPLv3 License in the LICENSE
-file and `requirements.txt` which contains only `flask` and its dependencies.
-The `app` folder is where all of the source codes will be placed. Do not write
-any code outside this folder.
+# ShortenREST External API Adapter
+This service will provide and API to create and manage short urls with
+[ShortenREST](https://shorten.rest/). You should visit
+[ShortenREST](https://shorten.rest/) website and create an account. After that, get
+a token and use that to create or manage your short urls with this service.
+
 
 ## Managing the Environment and Dependencies
 To start working, first install `virtualenv` with pip.
@@ -50,24 +49,7 @@ to the requirements of the project.
 ## Running the Service
 
 After installing `flask` and its dependencies from `requirements.txt` file,
-you can go to the `app` folder and run the simple **Hello, World!** app with
-this command.
+you can go to the `app` folder and run the app with this command.
 ```
-flask --app main --debug run
+python main.py
 ```
-
-There is also a `config.py.sample` file in the `app` directory. This is
-a template for `config.py` file which should be created by the user who runs
-the service. Any local or secret variables that cannot be shared on the GitHub
-repo will be stored in this file. Be aware that `config.py` is ignored by the
-`.gitignore` file. Whatever that is written or added in this file should be
-also reflected in the `config.py.sample` so it is crystal clear what should be
-added to `config.py` to run the service.
-
-## Further Questions?
-If you have questions regarding how to create a new service, feel free to send
-an email to your manager [smmousavisp@gmail.com](smmousavisp@gmail.com). I
-will do my best to respond in time.
-
-Please understand that violating these rules and conditions will result in
-disciplinary punishments. 
