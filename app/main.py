@@ -81,6 +81,8 @@ def delete_endpoint():
     alias = request.json.get("alias")
     # Get the token from the request body
     token = request.json.get("token")
+    
+    alias = alias.split("/")[-1]
 
     errors = []
     # Validate the token
