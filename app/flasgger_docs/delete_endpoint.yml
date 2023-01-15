@@ -1,0 +1,94 @@
+Deleting a short url by providing its alias.
+---
+parameters:
+  - in: body
+    name: short_url
+    description: Short url to be deleted from TinyURL.
+    type: object
+    schema:
+        properties:
+            token:
+                type: string
+                in: body
+                example: "efa143a0-885e-11ed-a7b3-bd3a9049e59e"
+                required: true
+            alias:
+                type: string
+                in: body
+                example: "flask2"
+                required: true
+responses:
+    200:
+        description: Successful operation. Short URL deleted successfully.
+        schema:
+            properties:
+                code:
+                    type: integer
+                    description: The status code
+                    example: 200
+                data:
+                    type: object
+                    example: {}
+                errors:
+                    type: array
+                    items:
+                        type: string
+                    description: The errors
+                    example: []
+    400:
+        description: Bad request, please check the errors in the response body.
+        schema:
+            properties:
+                code:
+                    type: integer
+                    description: The status code
+                    example: 400
+                data:
+                    type: object
+                    example: {}
+                errors:
+                    type: array
+                    items:
+                        type: string
+                    description: The errors
+                    example: [
+                        "Invalid account",
+                        "Alias doesn't exist"
+                    ]
+    422:
+        description: Validation failed on one of the properties, please check the errors in the response body.
+        schema:
+            properties:
+                code:
+                    type: integer
+                    description: The status code
+                    example: 422
+                data:
+                    type: object
+                    example: {}
+                errors:
+                    type: array
+                    items:
+                        type: string
+                    description: The errors
+                    example: [
+                        "Invalid URL",
+                        "Alias field is too long"
+                    ]
+    5XX:
+        description: There was an unexpected error processing your request.
+        schema:
+            properties:
+                code:
+                    type: integer
+                    description: The status code
+                    example: 5XX
+                data:
+                    type: object
+                    example: {}
+                errors:
+                    type: array
+                    items:
+                        type: string
+                    description: The errors
+                    example: ["Something went wrong"]
