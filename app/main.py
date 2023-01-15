@@ -13,11 +13,17 @@ from settings import (
     PORT
 )
 
+template = {
+    "info":{
+        "title": "ShortenREST API",
+        "description": "ShortenREST adapter service to shorten URLs"
+    }
+}
 
 BASE_URL = "https://api.shorten.rest/aliases"
 
 app = Flask(__name__)
-swagger = Swagger(app)
+swagger = Swagger(app, template=template)
 
 
 @app.errorhandler(HTTPException)
