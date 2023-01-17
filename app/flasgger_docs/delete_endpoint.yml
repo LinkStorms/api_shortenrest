@@ -1,5 +1,7 @@
 Deleting a short url by providing its alias.
 ---
+tags:
+  - ShortenREST
 parameters:
   - in: body
     name: short_url
