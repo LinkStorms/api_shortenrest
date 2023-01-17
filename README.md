@@ -1,8 +1,9 @@
 # ShortenREST External API Adapter
 This service will provide and API to create and manage short urls with
 [ShortenREST](https://shorten.rest/). You should visit
-[ShortenREST](https://shorten.rest/) website and create an account. After that, get
-a token and use that to create or manage your short urls with this service.
+[ShortenREST](https://shorten.rest/) website and create an account. After
+that, get a token and use that to create or manage your short urls with this
+service.
 
 
 ## Managing the Environment and Dependencies
@@ -36,20 +37,14 @@ just created.
 pip install -r requirements.txt
 ```
 
-This will only install `flask` and its dependencies. If you need other
-packages, you need to install them with `pip install` first, and then update
-the `requirements.txt` file with this command.
-```bash
-pip freeze > requirements.txt
-```
-Be careful not to update `requirements.txt` outside the virtual environment,
-since every python package you have installed on your computer will be added
-to the requirements of the project.
-
 ## Running the Service
-
-After installing `flask` and its dependencies from `requirements.txt` file,
-you can go to the `app` folder and run the app with this command.
-```
+After installing the dependencies, you can go to the `app` directory and then
+run the service by executing the following command.
+```bash
 python main.py
 ```
+If you want to change the port number, you can do so by changing the `PORT`
+constant in the `settings.py` file.
+
+## Further Questions?
+Feel free to create an issue or contact us directly.
