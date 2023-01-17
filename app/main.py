@@ -48,7 +48,7 @@ def create_endpoint():
     # Get the url from the request body
     url = request.json.get("url")
     # Get the alias from the request body
-    alias = request.json.get("alias")
+    alias = request.json.get("alias", "")
     # Get the token from the request body
     token = request.json.get("token")
 
@@ -64,10 +64,10 @@ def create_endpoint():
     except ValueError as e:
         errors.append(str(e))
     # Validate the alias
-    try:
-        alias_validation(alias)
-    except ValueError as e:
-        errors.append(str(e))
+    # try:
+    #     alias_validation(alias)
+    # except ValueError as e:
+    #     errors.append(str(e))
     # Return the errors if any
     if errors:
         return {"data": {}, "errors": errors, "code": 422}, 422
