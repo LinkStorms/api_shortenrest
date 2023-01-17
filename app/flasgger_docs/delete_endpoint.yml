@@ -3,7 +3,7 @@ Deleting a short url by providing its alias.
 parameters:
   - in: body
     name: short_url
-    description: Short url to be deleted from TinyURL.
+    description: Short url to be deleted from shortenrest.
     type: object
     schema:
         properties:
