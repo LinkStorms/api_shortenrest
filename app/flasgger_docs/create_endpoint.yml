@@ -1,6 +1,8 @@
 Creating a short url with alias if provided, otherwise a random alias
 will be generated
 ---
+tags:
+  - ShortenREST
 parameters:
   - in: body
     name: url
